@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="header">
+        <h1>Hello Baddest! Let's Plan</h1>
+        <h3>Schedule and Categorize your List </h3>
+    </div>
+    <div>
+        <h3 id="plan-header">What's your Plan for today?</h3>
+    </div>
+    <div class="tab">
+        <h4 data-all onclick="inProgress(0)" id="all">All</h4>
+        <h4 data-progress onclick="inProgress(1)" id="in-progress">In Progress</h4>
+        <h4 data-completed onclick="inProgress(2)" id="completed">Completed</h4>
+    </div>
+    <div class="main-schedule-task">
+
+    </div>
+
+    <form action="" onsubmit="event.preventDefault(); addToList()">
+        <div class="task">
+            <div id="each-task">
+                <input id="title" type="text" placeholder="Title" required>
+                <textarea id="content" required name="Description" id="" cols="30" rows="2" placeholder="Content"></textarea>
+            </div>
+            <div class="bottom-task">
+                <div class="category-select">
+                    <select name="" id="category" required>
+                    </select>
+
+                </div>
+
+                <button id="add" class="add" type="submit">Add To List</button>
+
+            </div>
+
+        </div>
+    </form>
+
+
+</body>
+<!-- <script src="script.js"></script> -->
+<script src="{% static 'script.js' %}"></script>
+
+</html>

@@ -1,0 +1,192 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+body {
+    margin: 0 auto;
+    padding: 1.5rem;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 2rem;
+    border: 2px solid rgba(0, 0, 0, 0.104);
+    border-radius: 1rem;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.112);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    background-color: #FDFDFF;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header h1 {
+    font-weight: 400;
+}
+
+.header h1,
+.header h3 {
+    margin: 0.4rem;
+}
+
+.header h3 {
+    font-weight: 200;
+}
+
+.header h3 {
+    background-color: rgb(15, 13, 14);
+    color: #fff;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+h3#plan-header {
+    font-weight: 100;
+}
+
+.task #each-task {
+    border: 1px solid rgba(0, 0, 0, 0.104);
+    background-color: #ffffffbb;
+    border-radius: .6rem;
+}
+
+.task #each-task #title {
+    font-weight: 100;
+    font-size: large;
+}
+
+.task #each-task textarea,
+.task #each-task input {
+    outline: none;
+}
+
+.task #each-task #content,
+.task #each-task #title {
+    background-color: transparent;
+    display: block;
+    padding: .5rem;
+    width: 100%;
+    border: none;
+}
+
+.task {
+    margin-top: 2rem;
+}
+
+.bottom-task div {
+    width: 60%;
+}
+
+.bottom-task .category-select select {
+    width: 100%;
+    padding: .2rem;
+    outline: none;
+}
+
+.tab,
+.bottom-task,
+.schedule-task {
+    display: flex;
+}
+
+.schedule-task {
+    justify-content: space-between;
+    align-items: center;
+    animation: slideDown .3s linear;
+    transition: transform .3s ease-in;
+}
+
+.schedule-task .st-inner-content {
+    background-color: #f0eded;
+    flex-grow: 1;
+    margin: .4rem;
+    border-radius: 2rem;
+    text-align: left;
+}
+
+.tag,
+.schedule-task .st-inner-content {
+    border-radius: .3rem;
+}
+
+.schedule-task .st-inner-content p {
+    font-weight: 300;
+}
+
+.tag p,
+.schedule-task .st-inner-content p {
+    margin: .4rem;
+}
+
+#checkbox {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: none;
+}
+
+.bottom-task {
+    justify-content: space-between;
+    margin-top: .5rem;
+}
+
+.bottom-task .add {
+    background-color: red;
+    border: none;
+    color: #fff;
+    padding-inline: 2rem;
+    border-radius: .2rem;
+}
+
+.tab {
+    justify-content: space-between;
+}
+
+.tab h4 {
+    flex-basis: 30%;
+    font-weight: 200;
+    border-bottom: 1px solid #0000004f;
+    transition: border-bottom .3s ease;
+    text-align: center;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.active {
+    border-bottom: 2px solid #0d0435ea !important;
+    font-weight: bolder !important;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-.5rem);
+        opacity: .5;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.edit_button {
+    display: flex;
+    gap: .5rem;
+    padding-inline: .5rem;
+}
+
+.edit_button button {
+    display: block;
+    border: none;
+    color: #fff;
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.edit_button button:nth-of-type(1) {
+    background-color: blue;
+}
+
+.edit_button button:nth-of-type(2) {
+    background-color: red;
+}
