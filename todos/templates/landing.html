@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data and E-topup dealer">
+    <meta name="author" content="Adebiyi Yusuf">
+    <title>TooDoo | CSC 420 GROUP 10</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+    <style>
+        #services .box {
+            padding-bottom: 0;
+        }
+        
+        .box.first {
+            margin-top: -150px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .box {
+            padding: 50px 30px;
+            background: #fff;
+            border-bottom: 1px solid #e9e9e9;
+            position: relative;
+        }
+        
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        
+        .row:before,
+        .row:after {
+            display: table;
+            content: " ";
+        }
+        
+        .row:before,
+        .row:after {
+            display: table;
+            content: " ";
+        }
+        
+        #services .row>div {
+            margin-bottom: 50px;
+        }
+        
+        @media (min-width: 992px) {
+            .col-md-4 {
+                width: 33.33333333333333%;
+            }
+        }
+    </style>
+</head>
+<!--/head-->
+
+<body data-spy="scroll" data-target="#navbar" data-offset="0">
+    <section id="main-slider" class="carousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1>PlanIt</h1>
+                        <p class="lead" style="margin-block: .5rem; font-weight: bold;"> Created by Group 10</p>
+                        <p class="lead">Enjoy timeliness and orderliness in your workflow daily<br>Subscribe with us</p>
+                        <a href="/todos">
+                            <button style="padding-inline:1rem; padding-block: .5rem; border-radius: .5rem; font-size: larger; cursor: pointer; margin-block: 1rem; border: none; background-color: #fff; color: #000;"> Start Planning! </button>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--/.item-->
+            <div class="item">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1>TooDoo</h1>
+                        <p class="lead">Get notified and enjoy working with ease everyday!<br>A trial will convince you.</p>
+                    </div>
+                </div>
+            </div>
+            <!--/.item-->
+        </div>
+        <!--/.carousel-inner-->
+
+    </section>
+    <!--/#main-slider-->
+
+    <section id="services">
+        <div class="container" style="width: 90%;">
+            <div class="box first">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 ">
+                        <div class="center ">
+                            <i class="icon-apple icon-md icon-color1 "></i>
+                            <h4>Set Your Task</h4>
+                            <p>Stay at the top of your time, Implement Promptness.</p>
+                        </div>
+                    </div>
+                    <!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6 ">
+                        <div class="center ">
+                            <i class="icon-android icon-md icon-color2 "></i>
+                            <h4>Leap Ahead</h4>
+                            <p>Stay ahead amongst your peers by ensuring promptness with TooDoo.</p>
+                        </div>
+                    </div>
+                    <!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 ">
+                        <div class="center ">
+                            <i class="icon-html5 icon-md icon-color4 "></i>
+                            <h4>Amazing User Experience.</h4>
+                            <p>Enjoy working with ease everyday.</p>
+                        </div>
+                    </div>
+                    <!--/.col-md-4-->
+
+                </div>
+                <!--/.row-->
+            </div>
+            <!--/.box-->
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#services-->
+
+    <footer id="footer ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-6 ">
+                    Created by Last Group
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/#footer-->
+
+</body>
+
+</html>

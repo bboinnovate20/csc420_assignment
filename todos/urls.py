@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     # path("", views.index, name="index"),    
     path('', views.index),
+    path('<int:task_id>', views.single),
     path('api', views.ListTaskView.as_view()),
     path('api/<int:task_id>', views.ListTaskView.as_view()),
     path('api/all/<int:task_id>', views.TaskEditView.as_view()),

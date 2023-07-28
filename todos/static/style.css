@@ -190,3 +190,127 @@ h3#plan-header {
 .edit_button button:nth-of-type(2) {
     background-color: red;
 }
+
+.single_task h1 {
+    color: rgb(2, 2, 56);
+}
+
+.single_task {
+    text-align: left !important;
+}
+
+.single_task>h3 {
+    border-bottom: 1px solid grey;
+    padding-bottom: .5rem;
+}
+
+.task_description {
+    border: 1px solid grey;
+    border-radius: .5rem;
+    padding-inline: .5rem;
+}
+
+.descr {
+    color: rgb(155, 7, 7);
+}
+
+.task_description p {
+    line-height: 1.5rem;
+}
+
+.progress_bar {
+    border-radius: .5rem;
+    border: 2px solid black;
+    text-align: center;
+    position: relative;
+    padding-block: 1rem;
+    overflow: hidden;
+}
+
+.progressing {
+    position: absolute;
+    padding: 0rem;
+    background-color: yellow;
+    top: 0;
+    overflow: hidden;
+    bottom: 0;
+}
+
+.anim_prog::after {
+    content: " ";
+    padding: .2rem;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transform: rotate(10deg) scale(3);
+    transition: all .3s ease-in-out;
+    filter: blur(.5rem);
+}
+
+.progress_bar {
+    margin-block: 1rem;
+}
+
+.anim_prog {
+    transition: all .3s ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: move 2s ease infinite;
+}
+
+@keyframes move {
+    from {
+        transform: translateX(-100%);
+        opacity: 1;
+        /* right: auto; */
+    }
+    to {
+        /* left: auto; */
+        transform: translateX(50%);
+        opacity: 0.3;
+        right: 0;
+    }
+}
+
+
+/* .anim_prog {
+    position: absolute;
+    padding: 1rem;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+} */
+
+.progress_bar p {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+}
+
+.evaluating {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding-inline: 1rem;
+    padding-block: .5rem;
+    border-radius: .5rem;
+    align-items: center;
+}
+
+.evaluating button {
+    border: none;
+    background: #fff;
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: .5rem;
+}
+
+@media (max-width: 353px) {
+    .row {
+        display: block;
+    }
+}

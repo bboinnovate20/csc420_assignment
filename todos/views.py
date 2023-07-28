@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from todos.models import Category, Task
 from todos.serializers import TaskSerializer, CategorySerializer
+from django.http import Http404
 from django.shortcuts import render
 
 class ListTaskView(APIView):
@@ -145,3 +146,12 @@ class CategoryDetailView(APIView):
 
 def index(request):
     return render(request, "index.html")
+
+
+def single(request, task_id):
+    try:
+        print(task_id)
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        raise Http404("Task does not exist")
+    return render(request, "index2.html", {"task": task})

@@ -1,4 +1,5 @@
 
+
 let MAIN_SCHEDULE = document.querySelector('.main-schedule-task');
 const API = 'http://127.0.0.1:8000/todos/api';
 window.editMode = false;
@@ -107,11 +108,12 @@ function updateTask(element, fullUpdate) {
                 'category': element['category'],
                 'description': element['description'],
               })
-        }).then((response) => {
+        }).then(async (response) => {
             if(response.ok) {
                 window.editMode = false;
                 getFromAPI()
                 //update the button 
+                await progress_remind() 
                 document.getElementById('add').innerText = "Add Task";
             }
             else alert("Failed to Updated!");
@@ -133,6 +135,7 @@ function updateTask(element, fullUpdate) {
         if(response.ok) {
             findTask = ALL_TASK.find((e) => e.id == element.name);
             findTask.status = element.checked ? 2 : 1;  
+            progress_remind() 
         }
     })
     
@@ -147,13 +150,16 @@ async function initiateIntoDOM(array, dom) {
         let catg = await getCategory(element.category)
         
         dom.innerHTML +=`
+
         <div class="schedule-task">
             <div>
-                <input id="checkbox" onchange="updateTask(this, false)" ${element.status == 2 ? 'checked':''} type="checkbox" name=${element.id} id="">
+                <input id="checkbox" onchange="updateTask(this, false);" ${element.status == 2 ? 'checked':''} type="checkbox" name=${element.id} id="">
             </div>
             <div class="st-inner-content">
-                <p>${element.title}</p>
-            </div>
+            <a href="/todos/${element.id}" style="text-decoration: none; color: #000;">
+                    <p>${element.title}</p>
+                    </a>
+                </div>
             <div class="tag" style="background-color:${catg.color}; color: white;">
                 <p>${catg.title}</p>
             </div>
@@ -223,8 +229,10 @@ function addToList() {
              },
            body: JSON.stringify(data)
        }).then(async (response) => {
+            
            if(response.ok) {
                await getFromAPI()
+               progress_remind()
                document.getElementById('add').innerText = "Add Task";
                document.getElementById('add').disabled = false;
                return
@@ -233,6 +241,7 @@ function addToList() {
    }
    
     //empty the task inputs
+    
     document.getElementById('title').value = "";
     document.getElementById('content').value = "";
 }
@@ -275,3 +284,27 @@ async function getAllCategories(parentNode) {
     })
     
 }
+
+
+async function progress_remind() {
+    const getId = document.getElementById('progress_bar');
+
+    fetchData = await fetch(API);
+    data = await fetchData.json();
+    myData = [...data];
+   
+    let allTask = myData.length;
+    let filtered = myData.filter(task => task.status == 2)
+    // let uncompleted = myData.length
+
+    const percentage =  Math.floor(filtered.length/allTask * 100)
+    
+    getId.innerHTML = `
+        <div class="progressing" style="width: ${percentage}%;">
+            <div class="anim_prog"></div>
+        </div>
+        <p>Overall Goal ${percentage}%</p>
+    `
+}
+
+progress_remind();

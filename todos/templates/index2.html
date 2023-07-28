@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="single_task">
+        <h1>Today's Goals:</h1>
+
+        <h3><span class="descr">Title:</span> {{ task.title }}</h3>
+        <h3><span class="descr">Status:</span> {% if task.status.id == 1 %} Pending {% else %} Completed ✅ {% endif %}
+
+
+        </h3>
+        <div style="margin-bottom: .5rem;background-color: blue; color: #fff; padding-inline: 1rem; padding-block: .5rem; border-radius: .5rem;">
+            <p style="margin: 0;" id="remain_time"></p>
+        </div>
+        <div class="task_description">
+            <h3><span class="descr">Description</span> </h3>
+            <p>{{task.description}}</p>
+        </div>
+
+        <q id="quotes" style="padding:1rem; display:block; text-align: center;"></q>
+    </div>
+</body>
+<script>
+    function getRemainDate() {
+        const endDate = new Date();
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+
+        const current = new Date();
+
+        const diff = endDate.getTime() - current.getTime();
+
+        // Calculate the difference in hours and minutes
+        const hoursDiff = Math.floor(diff / (1000 * 60 * 60));
+        const minutesDiff = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        return `${hoursDiff} hours ${minutesDiff} minutes left to complete today's goal 😎 😎`
+    }
+
+    const getTime = document.getElementById('remain_time');
+
+    if (getTime) {
+        getTime.innerHTML = getRemainDate();
+
+    }
+
+    const motivationalQuotes = [
+        "Success is not a result of luck; it's a product of hard work, determination, and perseverance.",
+        "The future belongs to those who believe in the beauty of their dreams and work tirelessly to achieve them.",
+        "Your journey may be challenging, but every step you take brings you closer to greatness.",
+        "In the pursuit of knowledge and excellence, there are no shortcuts; only dedication and effort lead to true success.",
+        "Believe in yourself, for you have the power to turn your ambitions into accomplishments.",
+        "The most significant discoveries and achievements often come from the relentless pursuit of learning and innovation.",
+        "Embrace failure as a stepping stone to success; each setback is an opportunity to grow and improve.",
+        "You are the author of your story; with each chapter, let determination and focus write a tale of triumph.",
+        "The world needs your unique talents and contributions; let your passion drive you to make a difference.",
+        "Time is a valuable resource; invest it wisely in your education, and the rewards will be boundless."
+    ];
+
+    function getRandomQuote() {
+        getQuote = document.getElementById("quotes");
+        const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+        getQuote.innerHTML = motivationalQuotes[randomIndex];
+    }
+
+    getRandomQuote();
+</script>
+
+</html>

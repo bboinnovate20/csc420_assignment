@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
 from todos import urls as todo_urls
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('rest_framework.urls')),
+    path('', views.index),
     path('todos/', include(todo_urls)),
 ]
