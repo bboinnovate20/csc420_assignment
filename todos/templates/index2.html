@@ -19,6 +19,7 @@
         <h1>Today's Goals:</h1>
 
         <h3><span class="descr">Title:</span> {{ task.title }}</h3>
+        <h3><span class="descr">Created at:</span> {{ task.date }}</h3>
         <h3><span class="descr">Status:</span> {% if task.status.id == 1 %} Pending {% else %} Completed ✅ {% endif %}
 
 

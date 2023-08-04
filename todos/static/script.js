@@ -18,6 +18,66 @@ getAllCategories("category");
 getAllCategories();
 inProgress(0)
 
+
+function switchSearchClose(toSearch) {
+    const searchIcon = document.getElementById("search_bar");
+    const addButton = document.getElementById("submit-task");
+
+    const searchBar = document.getElementById("searching");
+    const closeIcon = document.getElementById("cancel-search")
+
+    if(toSearch) {
+        searchIcon.classList.add('display-none');
+        addButton.classList.add('display-none');
+        searchBar.classList.remove('display-none')
+        closeIcon.classList.remove('display-none')
+        return;
+    }
+    searchIcon.classList.remove('display-none');
+    addButton.classList.remove('display-none');
+    searchBar.classList.add('display-none')
+    closeIcon.classList.add('display-none')
+}
+
+function filterByName({value}) {
+    if(value == "") {
+        initiateIntoDOM(ALL_TASK, MAIN_SCHEDULE, true, false)
+    }
+    const regex = new RegExp(value.toLowerCase())
+    filtered = ALL_TASK.filter(task => regex.test(task.title.toLowerCase()) === true || regex.test(task.description.toLowerCase()) == true);
+    
+    initiateIntoDOM(filtered, MAIN_SCHEDULE, false, false)
+    if(filtered.length <= 0) return MAIN_SCHEDULE.innerHTML = "<p><em>Empty List</em></p>"
+}
+
+function loading() {
+    const loading = document.getElementById("pop-up-loading");
+    console.log(loading);
+    loading.classList.add('show-loading');
+    setTimeout(() => {
+        loading.classList.remove('show-loading');
+    }, 1000)
+}
+
+function showPopUp(reverse) {
+    const show = document.getElementById("pop-up-task");
+    const container = document.getElementsByClassName("container");
+    if(!reverse) {
+        show.classList.add("showPopUp");
+        container[0].classList.add("blurBody");
+        return;
+    }
+    show.classList.remove("showPopUp");
+    container[0].classList.remove("blurBody");
+
+    if(window.editMode) {
+        window.editMode = false;
+        document.getElementById('title').value = "";
+        document.getElementById('content').value = "";
+        document.getElementById('add').innerText = "Add to List";
+    }
+}
+
 // generateCategoryOptions("category", CATEGORY);
 
 
@@ -69,7 +129,7 @@ function navigate(number) {
         else ALL_TABS[index].classList.remove("active");
     }
     if(number == 0) {
-        return getFromAPI();
+        return getFromAPI(true, true);
     }
 
     filterTask(number);
@@ -111,7 +171,7 @@ function updateTask(element, fullUpdate) {
         }).then(async (response) => {
             if(response.ok) {
                 window.editMode = false;
-                getFromAPI()
+                getFromAPI(false, true)
                 //update the button 
                 await progress_remind() 
                 document.getElementById('add').innerText = "Add Task";
@@ -135,6 +195,7 @@ function updateTask(element, fullUpdate) {
         if(response.ok) {
             findTask = ALL_TASK.find((e) => e.id == element.name);
             findTask.status = element.checked ? 2 : 1;  
+            getFromAPI(false, false)
             progress_remind() 
         }
     })
@@ -143,30 +204,49 @@ function updateTask(element, fullUpdate) {
 
 
 
-async function initiateIntoDOM(array, dom) {
+async function initiateIntoDOM(array, dom, transition, shouldLoad) {
+    if(shouldLoad == true){loading(); }
     dom.innerHTML = "";
     
     array.forEach(async (element) =>  {
         let catg = await getCategory(element.category)
+        let transit = "";
+        if(transition) transit = `"transition: transform ${.3}s ease-in;  animation: slideDown ${.3}s linear"`;
         
         dom.innerHTML +=`
-
-        <div class="schedule-task">
-            <div>
-                <input id="checkbox" onchange="updateTask(this, false);" ${element.status == 2 ? 'checked':''} type="checkbox" name=${element.id} id="">
-            </div>
-            <div class="st-inner-content">
-            <a href="/todos/${element.id}" style="text-decoration: none; color: #000;">
-                    <p>${element.title}</p>
-                    </a>
+        <div class="schedule-header" style=${transit}>
+            <div class="schedule-task">
+                <div>
+                    <input id="checkbox" onchange="updateTask(this, false);" ${element.status == 2 ? 'checked':''} type="checkbox" name=${element.id} id="">
                 </div>
-            <div class="tag" style="background-color:${catg.color}; color: white;">
-                <p>${catg.title}</p>
+                <div class="st-inner-content">
+                <a href="/todos/${element.id}" style="text-decoration: none; color: #000;">
+                        <p style="font-weight:bold" >${element.title}</p>
+                        <p style="font-size: small;">${element.description}</p>
+                        </a>
+                    </div>
+              
+                <div class="edit_button">
+                    <button onclick=editTask(${element.id})>
+                    <i style="color: #000" class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button onclick=deleteTask(${element.id})>
+                    
+                    <i style="color: red" class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
             </div>
-            <div class="edit_button">
-                <button onclick=editTask(${element.id})>E</button>
-                <button onclick=deleteTask(${element.id})>D</button>
+       
+            <div class="schedule-status">
+                <div class="tag" style="background-color:${catg.color}; color: white;">
+                    <p>${catg.title}</p>
+                </div>
+
+                <div>
+                <p id="status_pen_up" > ${element.status == 2 ? 'Completed':'Pending'} </p>
+                </div>
             </div>
+
         </div>
         `
     });
@@ -181,7 +261,7 @@ function deleteTask(id) {
           },
     }).then(async (response) => {
         if(response.ok) {
-            await getFromAPI()
+            await getFromAPI(false)
             return;
         } 
         alert("Not Deleted!")
@@ -198,7 +278,7 @@ function editTask(id) {
 
     //update the button 
     document.getElementById('add').innerText = "Update Task";
-    
+    showPopUp(false);
 }
 
 function addToList() {
@@ -231,7 +311,7 @@ function addToList() {
        }).then(async (response) => {
             
            if(response.ok) {
-               await getFromAPI()
+               await getFromAPI(false, true)
                progress_remind()
                document.getElementById('add').innerText = "Add Task";
                document.getElementById('add').disabled = false;
@@ -244,12 +324,13 @@ function addToList() {
     
     document.getElementById('title').value = "";
     document.getElementById('content').value = "";
+    showPopUp(true);
 }
 
 function filterTask(by) {
     filtered = ALL_TASK.filter(task => task.status == by);
     if(filtered.length <= 0) return MAIN_SCHEDULE.innerHTML = "<p><em>Empty List</em></p>"
-    initiateIntoDOM(filtered, MAIN_SCHEDULE)
+    initiateIntoDOM(filtered, MAIN_SCHEDULE, true, false)
 }
 
 
@@ -261,11 +342,11 @@ function addToComplete() {
 
 
 
-async function getFromAPI() {
+async function getFromAPI(transit, shouldLoad) {
     fetchData = await fetch(API);
     data = await fetchData.json();
     ALL_TASK = [...data];
-    await initiateIntoDOM(ALL_TASK, MAIN_SCHEDULE);
+    await initiateIntoDOM(ALL_TASK, MAIN_SCHEDULE, transit, shouldLoad);
 }
 
 
@@ -296,15 +377,29 @@ async function progress_remind() {
     let allTask = myData.length;
     let filtered = myData.filter(task => task.status == 2)
     // let uncompleted = myData.length
-
+    
     const percentage =  Math.floor(filtered.length/allTask * 100)
     
-    getId.innerHTML = `
-        <div class="progressing" style="width: ${percentage}%;">
-            <div class="anim_prog"></div>
-        </div>
-        <p>Overall Goal ${percentage}%</p>
-    `
+    if(allTask > 0){
+
+        getId.innerHTML = `
+            <div class="progressing" style="width: ${percentage ?? 0}%;">
+                <div class="anim_prog"></div>
+            </div>
+            <p>Overall Goal ${percentage == NaN ? 0 : percentage}%</p>
+        `
+    }
+
+    else {
+        getId.innerHTML = `
+            <div class="progressing" style="width: ${percentage ?? 0}%;">
+                <div class="anim_prog"></div>
+            </div>
+            <p>No task yet</p>
+        `
+
+    }
 }
 
 progress_remind();
+

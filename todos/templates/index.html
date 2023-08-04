@@ -11,50 +11,73 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
-
+    <script src="https://kit.fontawesome.com/d75c367c66.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;500;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="header">
-        <h1>Hello Baddest! Let's Plan</h1>
-        <h3>Schedule and Categorize your List </h3>
-    </div>
-    <div>
-        <h3 id="plan-header">What's your Plan for today?</h3>
-    </div>
-    <div class="progress_bar" id="progress_bar">
 
-    </div>
-    <div class="tab">
-        <h4 data-all onclick="inProgress(0)" id="all">All</h4>
-        <h4 data-progress onclick="inProgress(1)" id="in-progress">In Progress</h4>
-        <h4 data-completed onclick="inProgress(2)" id="completed">Completed</h4>
-    </div>
-    <div class="main-schedule-task">
+    <div id="pop-up-loading">
+        <div id="loading-task">
+            <div>
+                <img src="{% static 'product.gif' %}" alt="" srcset="" style="    width: 100%; height: 100%; transform: scale(1.5);">
 
-    </div>
-
-    <form action="" onsubmit="event.preventDefault(); addToList()">
-        <div class="task">
-            <div id="each-task">
-                <input id="title" type="text" placeholder="Title" required>
-                <textarea id="content" required name="Description" id="" cols="30" rows="2" placeholder="Content"></textarea>
             </div>
-            <div class="bottom-task">
+        </div>
+    </div>
+    <div id="pop-up-task">
+        <form action="" onsubmit="event.preventDefault(); addToList()">
+            <div class="task">
+                <div id="icon-head">
+                    <i class="fa-solid fa-circle-plus fa-beat"></i>
+                </div>
+                <div id="each-task">
+                    <input id="title" type="text" placeholder="Title" required>
+                    <textarea id="content" required name="Description" id="" cols="30" rows="5" placeholder="Content"></textarea>
+                </div>
                 <div class="category-select">
                     <select name="" id="category" required>
                     </select>
-
                 </div>
-
-                <button id="add" class="add" type="submit">Add To List</button>
-
+                <div class="bottom-task">
+                    <span id="cancel" class="add" onclick="showPopUp(true)">Cancel</span>
+                    <button id="add" class="add" type="submit">Add To List</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h2>Hello! Let's Plan</h2>
+        </div>
+        <div>
+            <h3 id="plan-header">What's your Plan for today?</h3>
+        </div>
+        <div class="progress_bar" id="progress_bar">
+        </div>
+        <div class="tab">
+            <h4 data-all onclick="inProgress(0)" id="all">All</h4>
+            <h4 data-progress onclick="inProgress(1)" id="in-progress">In Progress</h4>
+            <h4 data-completed onclick="inProgress(2)" id="completed">Completed</h4>
+        </div>
+        <div style="display: flex; align-items: center; margin-bottom: .8rem;">
+            <input oninput="filterByName(this)" type="text" id="searching" class="display-none">
+            <div onclick="switchSearchClose(false)" id="cancel-search" class="display-none">
+                <i class="fa-solid fa-xmark"></i>
             </div>
 
+            <div id="submit-task" onclick="showPopUp(false)">
+                <p>Add Task +</p>
+            </div>
+            <div id="search_bar" onclick="switchSearchClose(true)">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
         </div>
-    </form>
+        <div class="main-schedule-task">
+        </div>
+
+    </div>
 
 
 </body>

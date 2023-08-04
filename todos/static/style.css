@@ -4,22 +4,17 @@
 }
 
 body {
+    margin: 0;
+    background-color: #cedaff;
+    transition: filter .3s ease;
+}
+
+.container {
     margin: 0 auto;
     padding: 1.5rem;
     max-width: 800px;
     text-align: center;
     margin-top: 2rem;
-    border: 2px solid rgba(0, 0, 0, 0.104);
-    border-radius: 1rem;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.112);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 12px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-    background-color: #FDFDFF;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .header h1 {
@@ -71,9 +66,11 @@ h3#plan-header {
     border: none;
 }
 
+
+/* 
 .task {
-    margin-top: 2rem;
-}
+ 
+} */
 
 .bottom-task div {
     width: 60%;
@@ -87,23 +84,92 @@ h3#plan-header {
 
 .tab,
 .bottom-task,
+.schedule-header,
+.schedule-status,
 .schedule-task {
     display: flex;
 }
 
 .schedule-task {
+    align-items: flex-start;
+}
+
+#submit-task,
+.schedule-header {
+    box-shadow: 1px 1px 5px #00000056;
+}
+
+#submit-task {
+    background-color: #fff;
+    padding: 0.1rem;
+    margin-block: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all .3s ease;
+    transform: scale(.97);
+}
+
+#submit-task,
+#searching {
+    flex-grow: 1;
+    transition: all .3s ease;
+}
+
+#searching {
+    padding: 1.1rem;
+    margin-right: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+}
+
+#cancel-search:hover,
+#search_bar:hover,
+#submit-task:hover {
+    color: #fff;
+    transform: scale(1);
+}
+
+.display-none {
+    display: none;
+}
+
+#search_bar:hover,
+#submit-task:hover {
+    background-color: #010768 !important;
+}
+
+#cancel-search:hover {
+    background-color: red;
+}
+
+.schedule-header {
     justify-content: space-between;
-    align-items: center;
-    animation: slideDown .3s linear;
-    transition: transform .3s ease-in;
+    padding: 1.1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    margin-bottom: 0.8rem;
+    height: 10rem;
+    flex-direction: column;
 }
 
 .schedule-task .st-inner-content {
-    background-color: #f0eded;
     flex-grow: 1;
-    margin: .4rem;
-    border-radius: 2rem;
     text-align: left;
+    padding-inline: 0.5rem;
+}
+
+.schedule-status {
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.schedule-status p {
+    margin: 0 !important;
+    padding: .5rem;
+    font-weight: 200;
+    font-size: small;
 }
 
 .tag,
@@ -117,18 +183,21 @@ h3#plan-header {
 
 .tag p,
 .schedule-task .st-inner-content p {
-    margin: .4rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 #checkbox {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.3rem;
+    height: 1.3rem;
     border: none;
 }
 
 .bottom-task {
     justify-content: space-between;
     margin-top: .5rem;
+    align-items: center;
+    gap: 1rem;
 }
 
 .bottom-task .add {
@@ -137,25 +206,38 @@ h3#plan-header {
     color: #fff;
     padding-inline: 2rem;
     border-radius: .2rem;
+    padding-inline: 2.2rem;
+    flex-grow: 1;
+    padding-block: 0.8rem;
+    cursor: pointer;
 }
 
 .tab {
     justify-content: space-between;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .tab h4 {
-    flex-basis: 30%;
+    flex-grow: 1;
     font-weight: 200;
-    border-bottom: 1px solid #0000004f;
-    transition: border-bottom .3s ease;
+    transition: all .3s ease;
     text-align: center;
     padding-bottom: 10px;
     cursor: pointer;
+    margin-block: 0;
+    border-radius: 0.5rem;
+    padding-block: 1rem;
+    color: #000;
+    background-color: #fff;
 }
 
 .active {
-    border-bottom: 2px solid #0d0435ea !important;
     font-weight: bolder !important;
+    background-color: #020887 !important;
+    color: #fff !important;
 }
 
 @keyframes slideDown {
@@ -183,12 +265,8 @@ h3#plan-header {
     cursor: pointer;
 }
 
-.edit_button button:nth-of-type(1) {
-    background-color: blue;
-}
-
-.edit_button button:nth-of-type(2) {
-    background-color: red;
+.edit_button button {
+    background-color: #fff;
 }
 
 .single_task h1 {
@@ -197,6 +275,13 @@ h3#plan-header {
 
 .single_task {
     text-align: left !important;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
 }
 
 .single_task>h3 {
@@ -220,17 +305,17 @@ h3#plan-header {
 
 .progress_bar {
     border-radius: .5rem;
-    border: 2px solid black;
+    border: 1px solid #010222;
     text-align: center;
     position: relative;
-    padding-block: 1rem;
+    padding-block: 0.5rem;
     overflow: hidden;
 }
 
 .progressing {
     position: absolute;
     padding: 0rem;
-    background-color: yellow;
+    background-color: #fff;
     top: 0;
     overflow: hidden;
     bottom: 0;
@@ -239,13 +324,22 @@ h3#plan-header {
 .anim_prog::after {
     content: " ";
     padding: .2rem;
-    background-color: red;
+    background-color: #010768;
     position: absolute;
     top: 0;
     bottom: 0;
     transform: rotate(10deg) scale(3);
     transition: all .3s ease-in-out;
     filter: blur(.5rem);
+}
+
+#cancel-search,
+#search_bar {
+    transition: .3s ease linear;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 17px;
+    border-radius: 0.5rem;
 }
 
 .progress_bar {
@@ -286,9 +380,10 @@ h3#plan-header {
 .progress_bar p {
     margin: 0;
     position: absolute;
-    top: 20%;
+    top: 0%;
     right: 0;
     left: 0;
+    font-size: small;
 }
 
 .evaluating {
@@ -309,8 +404,103 @@ h3#plan-header {
     padding: .5rem;
 }
 
-@media (max-width: 353px) {
-    .row {
-        display: block;
+#pop-up-task {
+    z-index: 10000;
+    background-color: #fff;
+    position: fixed;
+    padding: 0.8rem;
+    width: 40%;
+    border-radius: 0.5rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -20%);
+    opacity: 0;
+    transition: all .3s ease;
+    visibility: hidden;
+}
+
+#loading-task {
+    width: 50%;
+    align-self: center;
+    justify-self: center;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+#pop-up-loading {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    background-color: rgba(0, 0, 0, 0.559);
+    z-index: 2000;
+    transition: visibility .3s ease;
+    visibility: hidden;
+}
+
+.show-loading {
+    visibility: visible !important;
+}
+
+#icon-head {
+    padding: 0.5rem;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: -45px;
+    margin-bottom: 10px;
+    color: #010768;
+}
+
+.showPopUp {
+    transform: translate(-50%, -50%) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.blurBody {
+    filter: blur(2px) invert(15%);
+    pointer-events: none;
+}
+
+#category {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#cancel {
+    background-color: #fff;
+    display: block;
+    color: #000;
+    text-align: center;
+    border: 1px solid #0000006b;
+}
+
+@media (max-width: 469px) {
+    #pop-up-task {
+        width: 80%;
+    }
+    #loading-task {
+        width: 110%;
+    }
+    .schedule-header {
+        height: auto;
+    }
+    .edit_button {
+        flex-direction: column;
+        padding-inline: 0;
+    }
+    #checkbox {
+        width: 1rem;
+        height: 1rem;
+    }
+    .header h3 {
+        font-size: large;
+    }
+    .header h2 {
+        font-size: x-large;
     }
 }

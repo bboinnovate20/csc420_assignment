@@ -16,4 +16,4 @@ class Task(models.Model):
     description = models.CharField(max_length=200);
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
-    
+    date = models.DateTimeField(auto_now=True)
